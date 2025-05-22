@@ -136,8 +136,6 @@ INSERT INTO citas_medicas VALUES (seq_citas_medicas.NEXTVAL, 4, 3, SYSDATE-1, '1
 INSERT INTO citas_medicas VALUES (seq_citas_medicas.NEXTVAL, 1, 2, SYSDATE-2, '11:00', 2, 'Control cardiológico', SYSDATE-2, 'ESPECIALIZADA');
 INSERT INTO citas_medicas VALUES (seq_citas_medicas.NEXTVAL, 2, 4, SYSDATE-3, '15:00', 2, 'Consulta pediátrica', SYSDATE-3, 'ESPECIALIZADA');
 
-COMMIT;
-
 -- =====================================================
 -- PROCEDIMIENTO ALMACENADO: sp_asignarCitaMedica
 -- =====================================================
@@ -199,14 +197,7 @@ BEGIN
     p_resultado := 'EXITO: Cita médica asignada correctamente';
     p_id_cita := v_nueva_cita;
     
-EXCEPTION
-    WHEN NO_DATA_FOUND THEN
-        p_resultado := 'ERROR: Paciente o médico no encontrado';
-        p_id_cita := 0;
-    WHEN OTHERS THEN
-        ROLLBACK;
-        p_resultado := 'ERROR: ' || SQLERRM;
-        p_id_cita := 0;
+
 END sp_asignarCitaMedica;
 /
 
